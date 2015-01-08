@@ -1,0 +1,21 @@
+<?php
+
+$this->printField($content, 'top', '<ol class="sortable">');
+
+echo "<li nodetreeid=\"{$content['node']}\" class=\"mjs-nestedSortable-no-nesting mjs-nestedSortable-leaf\"><div class=\"node-heading ui-sortable-handle\">";
+
+echo '<span title="Click to show/hide children" class="disclose fa fa-caret-down"></span>';
+echo '<div class="controls">';
+$this->printField($content, 'reference', '<span title="Click to edit node" class="fa fa-pencil" onclick="window.open(\'' . BonsaiEdit\Module\Registry::get('nodeEditPath') . '%s\');"></span>');
+echo BonsaiEdit\Module\Registry::get('usePreview') ? $this->renderField($content, 'node', '<span title="Click to preview node" class="preview fa fa-eye" onclick="window.open(\'' . BonsaiEdit\Module\Registry::get('previewPath') . '%s\');"></span>') : '';
+echo '<span title="Click to insert a branch" class="create fa fa-plus"></span>';
+$this->printField($content, 'contentref', '<span title="Click to edit content" class="fa fa-pencil-square-o" onclick="window.open(\'' . BonsaiEdit\Module\Registry::get('contentEditPath') . '%s\');"></span>');
+echo '<span title="Click to remove branch" class="destroy fa fa-remove"></span>';
+echo '</div>';
+
+echo $content['reference'];
+echo "</div><ol>";
+
+echo "{$content['subcontent']}</ol></li>";
+
+$this->printField($content, 'top', '</ol>');
