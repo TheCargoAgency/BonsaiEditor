@@ -2,8 +2,6 @@
 
 namespace BonsaiEdit\Module;
 
-require_once __DIR__ . '/../BonsaiEdit.php';
-
 use Bonsai\Exception\BonsaiException;
 
 /**
@@ -53,6 +51,8 @@ class Registry
         if ($this->init) {
             return $this;
         }
+        
+        $this->defineConstants();
 
         $defaultConfigFile = constant(self::PROJECT_NAMESPACE . "\\PROJECT_ROOT") . '/' . self::DEFAULT_INI;
         if (!file_exists($defaultConfigFile)) {
@@ -77,6 +77,10 @@ class Registry
         return $this;
     }
 
+    private function defineConstants(){
+        defined('BonsaiEdit\PROJECT_ROOT') || define('BonsaiEdit\PROJECT_ROOT', __DIR__ . '/..');
+    }        
+    
     public function __get($name)
     {
         if (!$this->init) {
